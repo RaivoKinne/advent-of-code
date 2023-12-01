@@ -1,3 +1,5 @@
-fn main() {
-    println!("part2");
+use anyhow::{Ok, Result};
+
+fn main() -> Result<()> {
+    return Ok(());
 }
