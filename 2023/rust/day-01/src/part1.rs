@@ -4,7 +4,9 @@ pub fn process(input: &str) -> Result<String> {
     let output = input
         .lines()
         .map(|line| {
-            let mut it = line.chars().filter_map(|character| character.to_digit(10));
+            let mut it = line
+                .chars()
+                .filter(|character| character.to_digit(10).is_some());
             let first = it.next().expect("should be a number");
 
             match it.last() {
@@ -25,9 +27,12 @@ mod tests {
 
     #[test]
     fn test() -> Result<()> {
-        let input = "1abc2\npqr3stu8vwx\na1b2c3d4e5f\ntreb7uchet";
+        let input = "1abc2
+                pqr3stu8vwx
+                a1b2c3d4e5f
+                treb7uchet";
 
-        assert_eq!("", process(input)?);
+        assert_eq!("142", process(input)?);
         Ok(())
     }
 }
