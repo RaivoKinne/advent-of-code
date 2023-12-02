@@ -10,7 +10,7 @@ mod tests {
 
     #[test]
     fn test() -> Result<()> {
-        let input = "1abc2\npqr3stu8vwx\na1b2c3d4e5f\ntreb7uchet";
+        let input = "";
 
         assert_eq!("", process(input)?);
         Ok(())
