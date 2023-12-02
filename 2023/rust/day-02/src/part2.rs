@@ -8,16 +8,13 @@ pub fn process(input: &str) -> Result<String> {
         let mut min_green = 0;
         let mut min_blue = 0;
 
-        for cube in game.split(": ").collect::<Vec<&str>>()[0].split("; ") {
-            let pulls = cube.split(", ").collect::<Vec<&str>>();
+        let pulls = game.split(": ").collect::<Vec<&str>>();
 
-            pulls.iter().for_each(|pull| {
-                let (count, color) = match pull.split_once(' ') {
-                    Some((count, color)) => (count, color),
-                    None => {
-                        panic!("Invalid input format: {}", pull);
-                    }
-                };
+        for pull in pulls[1].split("; ") {
+            let cubes = pull.split(", ").collect::<Vec<&str>>();
+
+            for cube in cubes {
+                let (count, color) = cube.split_once(' ').unwrap();
                 let count = count.parse::<usize>().unwrap();
 
                 match color {
@@ -26,12 +23,12 @@ pub fn process(input: &str) -> Result<String> {
                     "blue" => min_blue = min_blue.max(count),
                     _ => panic!("Unknown cube color: {}", color),
                 }
-            })
+            }
         }
 
         output += min_red * min_green * min_blue;
     }
-    dbg!(output);
+
     Ok(output.to_string())
 }
 
